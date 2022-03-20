@@ -14,29 +14,6 @@ import 'package:flutter/material.dart';
 class CommandlineOrGuiWindows {
   static const MethodChannel _channel = MethodChannel("commandline_or_gui_windows");
 
-  /// helper, runs both terminalAsStdout and terminalAsStderr
-  @Deprecated("If terminal already allocated causes issues with output")
-  static Future<void> terminalAsOut() async {
-    await terminalAsStdout();
-    await terminalAsStderr();
-  }
-
-  /// sets terminal (shell) as stderr
-  @Deprecated("If terminal already allocated causes issues with output")
-  static Future<void> terminalAsStdout() async {
-    await _channel.invokeMethod(
-      "setstdoutToTerminal",
-    );
-  }
-
-  /// sets terminal (shell) as stderr
-  @Deprecated("If terminal already allocated causes issues with output")
-  static Future<void> terminalAsStderr() async {
-    await _channel.invokeMethod(
-      "setstderrToTerminal",
-    );
-  }
-
   /// send data to stdout
   /// will send to default stdout if terminal not set as stdout
   static Future<void> stdout(String out) async {

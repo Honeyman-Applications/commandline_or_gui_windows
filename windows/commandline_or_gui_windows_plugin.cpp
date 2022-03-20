@@ -91,23 +91,11 @@ namespace
       std::cerr << std::get<std::string>(params->second) << std::endl;
       result->Success(flutter::EncodableValue("done"));
     }
-    // set stdout to be the terminal app launched in, or a new terminal
-    else if (method_call.method_name().compare("setstdoutToTerminal") == 0)
-    {
-      AllocConsole();
-      freopen_s((FILE **)stdout, "CONOUT$", "w", stdout);
-      result->Success(flutter::EncodableValue("done"));
-    }
-    // set stderr to be the terminal app launched in, or a new terminal
-    else if (method_call.method_name().compare("setstderrToTerminal") == 0)
-    {
-      AllocConsole();
-      freopen_s((FILE **)stderr, "CONOUT$", "w", stderr);
-      result->Success(flutter::EncodableValue("done"));
-    }
-    else if (method_call.method_name().compare("hideWindow"))
+    // hide the window(gui)
+    else if (method_call.method_name().compare("hideWindow") == 0)
     {
       CommandlineOrGuiWindowsPlugin::hideWindow();
+      result->Success(flutter::EncodableValue("done"));
     }
     else
     {
