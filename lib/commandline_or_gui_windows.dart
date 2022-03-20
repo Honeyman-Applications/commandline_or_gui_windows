@@ -38,7 +38,7 @@ class CommandlineOrGuiWindows {
 
   /// hides the gui
   /// the gui still exists, but cannot be interacted with by the user
-  static Future<void> hideWindow(String out) async {
+  static Future<void> hideWindow() async {
     await _channel.invokeMethod(
       "hideWindow",
     );
