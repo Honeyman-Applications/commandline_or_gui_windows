@@ -1,3 +1,10 @@
+## 1.0.0
+
+- Removed from dart and C++ code:
+  -```terminalAsOut```, ```terminalAsStdout```, and ```terminalAsStderr```
+- Began tracking more C++ code
+- Updated documentation
+
 ## 0.1.0
 
 - Added the ability to hide the main window
