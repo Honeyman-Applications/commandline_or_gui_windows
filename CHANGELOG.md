@@ -1,3 +1,14 @@
+## 0.1.0
+
+- Added the ability to hide the main window
+- Change ```<br/>``` to ```<br>``` in README.md
+- Window is now hidden in the example
+    - documetion coming in 1.0.0
+- no longer require allocation of terminal to write to stdout or stderr
+    - this causes issues
+    - functions left, but shouldn't be use
+- Depricated ```terminalAsOut```, ```terminalAsStdout```, and ```terminalAsStderr```
+
 ## 0.0.2
 
 - updated yaml to include git repo

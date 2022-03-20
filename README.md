@@ -1,7 +1,7 @@
 # Commandline or GUI Windows
 ### This plugin allows you to run a flutter windows app in gui mode, or commandline mode, and redirect stdout & stderr to the shell. 
 
-<br/>
+<br>
 
 ## Notes:
 - ***Windows Only*** 
@@ -16,7 +16,7 @@
     - by default a centered [CircularProgressIndicator](https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html) is displayed while the GUI us open
         - you can set a widget to display using the ```placeHolderAfterLoadedRunning``` parameter in the ```CommandlineOrGuiWindows.runAppCommandlineOrGUI``` function
 
-<br/>
+<br>
 
 ## Please Post Questions on StackOverflow, and tag @CatTrain (user:16200950)
 https://stackoverflow.com/
@@ -33,7 +33,7 @@ dependencies:
 import 'package:commandline_or_gui_windows/commandline_or_gui_windows.dart';
 ```
 
-<br/>
+<br>
 
 ## Example - Commandline Only:
 Note that ```commandline``` is true, if false app attempts to run in GUI mode. The app will exit once afterLoaded is done running, unless ```closeOnCompleteCommandlineOptionOnly``` is passed as ```false``` (default ```true```). If the below code is run in Android Studio by clicking the run (debug) button you will see a window open and close. To run this example follow the below steps:
@@ -202,10 +202,10 @@ static Future<void> stderr(String out) async
     - ```std::cerr```
 - must ensure ```terminalAsStderr``` is run before calling the function, otherwise an error will be thrown
 
-<br/>
+<br>
 
 ## Ref:
 https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html
-<br/>
+<br>
 https://pub.dev/packages/args
 

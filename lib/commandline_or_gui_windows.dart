@@ -14,39 +14,32 @@ import 'package:flutter/material.dart';
 class CommandlineOrGuiWindows {
   static const MethodChannel _channel = MethodChannel("commandline_or_gui_windows");
 
-  // flag to determine if terminal is set as stdout or stderr
-  static bool _terminalIsStdOut = false;
-  static bool _terminalIsStdErr = false;
-
   /// helper, runs both terminalAsStdout and terminalAsStderr
+  @Deprecated("If terminal already allocated causes issues with output")
   static Future<void> terminalAsOut() async {
     await terminalAsStdout();
     await terminalAsStderr();
   }
 
   /// sets terminal (shell) as stderr
+  @Deprecated("If terminal already allocated causes issues with output")
   static Future<void> terminalAsStdout() async {
     await _channel.invokeMethod(
       "setstdoutToTerminal",
     );
-    _terminalIsStdOut = true;
   }
 
   /// sets terminal (shell) as stderr
+  @Deprecated("If terminal already allocated causes issues with output")
   static Future<void> terminalAsStderr() async {
     await _channel.invokeMethod(
       "setstderrToTerminal",
     );
-    _terminalIsStdErr = true;
   }
 
   /// send data to stdout
   /// will send to default stdout if terminal not set as stdout
   static Future<void> stdout(String out) async {
-    // confirm terminal is stdout
-    if (!_terminalIsStdOut) {
-      throw Exception("Must make terminal stdout before writing to stdout");
-    }
     await _channel.invokeMethod(
       "printToTerminal",
       {
@@ -58,15 +51,19 @@ class CommandlineOrGuiWindows {
   /// send data to sdterr
   /// will send to default stderr if terminal not set as stderr
   static Future<void> stderr(String out) async {
-    // confirm terminal is stdout
-    if (!_terminalIsStdErr) {
-      throw Exception("Must make terminal stderr before writing to stdout");
-    }
     await _channel.invokeMethod(
       "printToTerminalError",
       {
         "out": out,
       },
+    );
+  }
+
+  /// hides the gui
+  /// the gui still exists, but cannot be interacted with by the user
+  static Future<void> hideWindow(String out) async {
+    await _channel.invokeMethod(
+      "hideWindow",
     );
   }
 
@@ -139,9 +136,6 @@ class _CommandlineWidgetState extends State<_CommandlineWidget> {
   // runs after widget init, this way it is fairly certain that flutter has loaded
   // closes app on complete unless told not to
   Future<void> _run() async {
-    // set stdout and stderr to the terminal
-    await CommandlineOrGuiWindows.terminalAsOut();
-
     // run code passed
     await widget.afterLoaded();
 

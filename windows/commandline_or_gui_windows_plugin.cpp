@@ -35,6 +35,8 @@ namespace
     void HandleMethodCall(
         const flutter::MethodCall<flutter::EncodableValue> &method_call,
         std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
+
+    void hideWindow();
   };
 
   // static
@@ -61,6 +63,11 @@ namespace
 
   CommandlineOrGuiWindowsPlugin::~CommandlineOrGuiWindowsPlugin() {}
 
+  void CommandlineOrGuiWindowsPlugin::hideWindow()
+  {
+    ShowWindow(GetActiveWindow(), SW_HIDE);
+  }
+
   // called by flutter plugin
   void CommandlineOrGuiWindowsPlugin::HandleMethodCall(
       const flutter::MethodCall<flutter::EncodableValue> &method_call,
@@ -68,7 +75,7 @@ namespace
   {
 
     // get arguments
-    const auto *arguments = std::get_if<EncodableMap>(method_call.arguments());
+    const EncodableMap *arguments = std::get_if<EncodableMap>(method_call.arguments());
 
     // print output to stdout, not to termial if terminal not set as stdout
     if (method_call.method_name().compare("printToTerminal") == 0)
@@ -97,6 +104,10 @@ namespace
       AllocConsole();
       freopen_s((FILE **)stderr, "CONOUT$", "w", stderr);
       result->Success(flutter::EncodableValue("done"));
+    }
+    else if (method_call.method_name().compare("hideWindow"))
+    {
+      CommandlineOrGuiWindowsPlugin::hideWindow();
     }
     else
     {
