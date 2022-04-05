@@ -161,6 +161,7 @@ bool Win32Window::CreateAndShow(const std::wstring &title,
         Scale(size.width, scale_factor), Scale(size.height, scale_factor),
         nullptr, nullptr, GetModuleHandle(nullptr), this);
   }
+  // ******* ADDED *******
 
   if (!window)
   {
