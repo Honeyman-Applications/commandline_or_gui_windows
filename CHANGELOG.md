@@ -1,3 +1,12 @@
+## 1.1.0
+
+- Added stderr output to example
+    - Added example of how to show stderr to readme
+- Wrote required steps to have the app run as a gui or commandline app
+    - modifications must be made to C++ code for apps that use this package
+    - Following steps allows output to stdout to be displayed in android studio run terminal
+- Increased documentation
+
 ## 1.0.0
 
 - Removed from dart and C++ code:

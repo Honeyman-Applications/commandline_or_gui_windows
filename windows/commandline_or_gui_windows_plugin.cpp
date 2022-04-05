@@ -81,14 +81,18 @@ namespace
     if (method_call.method_name().compare("printToTerminal") == 0)
     {
       auto params = arguments->find(EncodableValue("out"));
-      std::cout << std::get<std::string>(params->second) << std::endl;
+      std::string mystring = std::get<std::string>(params->second);
+      mystring.erase(std::remove(mystring.begin(), mystring.end(), '\r'), mystring.end());
+      std::cout << mystring << std::endl;
       result->Success(flutter::EncodableValue("done"));
     }
     // print output to stderr, not to terminal if terminal not set as stderr
     else if (method_call.method_name().compare("printToTerminalError") == 0)
     {
       auto params = arguments->find(EncodableValue("out"));
-      std::cerr << std::get<std::string>(params->second) << std::endl;
+      std::string mystring = std::get<std::string>(params->second);
+      mystring.erase(std::remove(mystring.begin(), mystring.end(), '\r'), mystring.end());
+      std::cerr << mystring << std::endl;
       result->Success(flutter::EncodableValue("done"));
     }
     // hide the window(gui)

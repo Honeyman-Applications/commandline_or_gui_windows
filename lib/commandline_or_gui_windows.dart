@@ -14,6 +14,12 @@ import 'package:flutter/material.dart';
 class CommandlineOrGuiWindows {
   static const MethodChannel _channel = MethodChannel("commandline_or_gui_windows");
 
+  static Future<void> syncStdOutAndStdErrWithConsole() async {
+    await _channel.invokeMethod(
+      "syncStdOutAndStdErrWithConsole",
+    );
+  }
+
   /// send data to stdout
   /// will send to default stdout if terminal not set as stdout
   static Future<void> stdout(String out) async {
