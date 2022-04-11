@@ -21,12 +21,21 @@ void main(List<String> args) async {
     "automation",
     abbr: "a",
   );
-  ArgResults results = parser.parse(args);
+
+  bool errors = false;
+  bool commandlineMode = false;
+  try {
+    ArgResults results = parser.parse(args);
+    commandlineMode = results["automation"];
+  } catch (err) {
+    /* ignore parsing errors, and load in gui mode */
+    errors = true;
+  }
 
   // part of plugin, main entry. This runciton runs runApp
   await CommandlineOrGuiWindows.runAppCommandlineOrGUI(
     // if you want to run in gui or commandline mode
-    commandline: results["automation"], // parsed option from above
+    commandline: commandlineMode, // parsed option from above
 
     // code you want to run if in commandline mode
     afterLoaded: () async {
@@ -36,10 +45,10 @@ void main(List<String> args) async {
     },
 
     // gui of the app
-    gui: const MaterialApp(
+    gui: MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text("This is the gui of the app"),
+          child: Text("This is the gui of the app. Error detected: $errors"),
         ),
       ),
     ),

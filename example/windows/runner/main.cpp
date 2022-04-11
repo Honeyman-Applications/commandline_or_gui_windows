@@ -23,7 +23,7 @@ void H_hideWindowOnStart(std::vector<std::string> args, std::string flag)
   {
     for (std::string i : args)
     {
-      if (i.compare(flag))
+      if (i == flag)
       {
         found = true;
         break;
@@ -49,7 +49,8 @@ int main(int argc, char *argv[])
 {
 
   // call to app that will hide the console, or set the flag to hide the gui
-  H_hideWindowOnStart(std::move(GetCommandLineArguments()), "-a");
+  // H_hideWindowOnStart(std::move(GetCommandLineArguments()), "-a");
+  H_hideWindowOnStart(std::vector<std::string>(argv, argv + argc), "-a"); // convert to vector, don't use GetCommandLineArguments unless using utf-8
 
   // Initialize COM, so that it is available for use in the library and/or
   // plugins.
