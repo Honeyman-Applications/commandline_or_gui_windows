@@ -13,6 +13,8 @@ All files that need to be modified will be located in the ```C:\path_to_your_pro
     - this required changes to other files listed below
   - change main from ```int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev, _In_ wchar_t *command_line, _In_ int show_command)``` to ```int main(int argc, char *argv[])```
     - remove ```::AttachConsole(ATTACH_PARENT_PROCESS)```, because console provided by OS
+  - ensure args are ascii, and not utf-8, unless you change the code to use utf-8
+    - ```std::vector<std::string>(argv, argv + argc)```
   - Example:
 ```cpp
 #include <flutter/dart_project.h>
@@ -40,7 +42,7 @@ void H_hideWindowOnStart(std::vector<std::string> args, std::string flag)
   {
     for (std::string i : args)
     {
-      if (i.compare(flag))
+      if (i == flag)
       {
         found = true;
         break;
@@ -65,8 +67,9 @@ void H_hideWindowOnStart(std::vector<std::string> args, std::string flag)
 int main(int argc, char *argv[])
 {
 
-  // call to function that will hide the console, or set the flag to hide the gui
-  H_hideWindowOnStart(std::move(GetCommandLineArguments()), "-a");
+  // call to app that will hide the console, or set the flag to hide the gui
+  // H_hideWindowOnStart(std::move(GetCommandLineArguments()), "-a");
+  H_hideWindowOnStart(std::vector<std::string>(argv, argv + argc), "-a"); // convert to vector, don't use GetCommandLineArguments unless using utf-8
 
   // Initialize COM, so that it is available for use in the library and/or
   // plugins.

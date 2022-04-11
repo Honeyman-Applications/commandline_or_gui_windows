@@ -1,3 +1,11 @@
+## 1.1.1
+
+- fixed example main.cpp
+    - args in main were being converted to utf-8
+    - ASCII strings now used
+- made main.dart ignore parsing errors
+    - bool true/false showing errors in gui
+
 ## 1.1.0
 
 - Added stderr output to example
