@@ -41,7 +41,6 @@ void main(List<String> args) async {
     afterLoaded: () async {
       await CommandlineOrGuiWindows.stdout("Hello World");
       await CommandlineOrGuiWindows.stderr("I broke nooooooo");
-      CommandlineOrGuiWindows.commandlineExit();
     },
 
     // gui of the app
