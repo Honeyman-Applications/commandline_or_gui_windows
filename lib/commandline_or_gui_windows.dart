@@ -12,7 +12,8 @@ import 'package:flutter/material.dart';
 /// and the ability to run in terminal and or gui
 /// terminal = shell in terminology
 class CommandlineOrGuiWindows {
-  static const MethodChannel _channel = MethodChannel("commandline_or_gui_windows");
+  static const MethodChannel _channel =
+      MethodChannel("commandline_or_gui_windows");
   static bool? _closeOnCompleteCommandlineOptionOnly;
 
   @Deprecated("Should not have been added, OS syncs stdout and stderr")
@@ -65,14 +66,17 @@ class CommandlineOrGuiWindows {
     bool commandline = true,
     bool closeOnCompleteCommandlineOptionOnly = true,
     int commandlineExitSuccesCode = 0,
-    Widget placeHolderAfterLoadedRunning = const MaterialApp(home: Scaffold(body: Center(child: CircularProgressIndicator()))),
+    Widget placeHolderAfterLoadedRunning = const MaterialApp(
+        home: Scaffold(body: Center(child: CircularProgressIndicator()))),
   }) async {
     // set so commandlineExit can be used
-    _closeOnCompleteCommandlineOptionOnly = closeOnCompleteCommandlineOptionOnly;
+    _closeOnCompleteCommandlineOptionOnly =
+        closeOnCompleteCommandlineOptionOnly;
 
     // thow err if in gui mode and no gui
     if (gui == null && !commandline) {
-      throw Exception("CommandlineOrGuiWindows: Must pass a gui widget if commandline == false");
+      throw Exception(
+          "CommandlineOrGuiWindows: Must pass a gui widget if commandline == false");
     }
 
     // if in gui mode return gui
@@ -83,7 +87,8 @@ class CommandlineOrGuiWindows {
 
     // err if afterLoaded passed and null
     if (afterLoaded == null) {
-      throw Exception("CommandlineOrGuiWindows: Must pass a afterLoaded Future if in commandline mode");
+      throw Exception(
+          "CommandlineOrGuiWindows: Must pass a afterLoaded Future if in commandline mode");
     }
 
     // run in commandline mode if not in gui mode
@@ -102,7 +107,8 @@ class CommandlineOrGuiWindows {
   static commandlineExit({int exitCode = 0}) {
     // if not called in afterLoaded, throw error, because _closeOnCompleteCommandlineOptionOnly is set in runAppCommandlineOrGUI
     if (_closeOnCompleteCommandlineOptionOnly == null) {
-      throw Exception("CommandlineOrGuiWindows: commandlineExit function can only be used in afterLoaded function");
+      throw Exception(
+          "CommandlineOrGuiWindows: commandlineExit function can only be used in afterLoaded function");
     }
 
     // close app using passed or default exit code
