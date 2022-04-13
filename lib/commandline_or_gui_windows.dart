@@ -53,7 +53,7 @@ class CommandlineOrGuiWindows {
     );
   }
 
-  /// runs runApp. Is a replacment for runApp
+  /// runs runApp. Is a replacement for runApp
   /// if commandline = true run app in commandline
   /// otherwise load passed gui widget ex material app
   /// closeOnCompleteCommandlineOptionOnly, closes app after supplied code (afterLoaded) is run, unless is false
@@ -65,7 +65,7 @@ class CommandlineOrGuiWindows {
     Future<void> Function()? afterLoaded,
     bool commandline = true,
     bool closeOnCompleteCommandlineOptionOnly = true,
-    int commandlineExitSuccesCode = 0,
+    int commandlineExitSuccessCode = 0,
     Widget placeHolderAfterLoadedRunning = const MaterialApp(
         home: Scaffold(body: Center(child: CircularProgressIndicator()))),
   }) async {
@@ -73,7 +73,7 @@ class CommandlineOrGuiWindows {
     _closeOnCompleteCommandlineOptionOnly =
         closeOnCompleteCommandlineOptionOnly;
 
-    // thow err if in gui mode and no gui
+    // throw err if in gui mode and no gui
     if (gui == null && !commandline) {
       throw Exception(
           "CommandlineOrGuiWindows: Must pass a gui widget if commandline == false");
@@ -96,14 +96,14 @@ class CommandlineOrGuiWindows {
       afterLoaded: afterLoaded,
       closeOnComplete: closeOnCompleteCommandlineOptionOnly,
       placeHolder: placeHolderAfterLoadedRunning,
-      commandlineExitSuccesCode: commandlineExitSuccesCode,
+      commandlineExitSuccessCode: commandlineExitSuccessCode,
     ));
   }
 
   /// A function that can be used to exit the app when it is in commandline mode
   /// should only be called from afterLoaded function
   /// not for use with gui
-  /// will not close app if _closeOnCompleteCommandlineOptionOnly is false, which is ussally for debugging purposes only
+  /// will not close app if _closeOnCompleteCommandlineOptionOnly is false, which is usually for debugging purposes only
   static commandlineExit({int exitCode = 0}) {
     // if not called in afterLoaded, throw error, because _closeOnCompleteCommandlineOptionOnly is set in runAppCommandlineOrGUI
     if (_closeOnCompleteCommandlineOptionOnly == null) {
@@ -123,14 +123,14 @@ class _CommandlineWidget extends StatefulWidget {
   final Future<void> Function() afterLoaded;
   final bool closeOnComplete;
   final Widget placeHolder;
-  final int commandlineExitSuccesCode;
+  final int commandlineExitSuccessCode;
 
   const _CommandlineWidget({
     Key? key,
     required this.afterLoaded,
     required this.closeOnComplete,
     required this.placeHolder,
-    required this.commandlineExitSuccesCode,
+    required this.commandlineExitSuccessCode,
   }) : super(key: key);
 
   @override
@@ -155,7 +155,7 @@ class _CommandlineWidgetState extends State<_CommandlineWidget> {
 
     // close app on complete unless otherwise specified
     if (widget.closeOnComplete) {
-      exit(widget.commandlineExitSuccesCode);
+      exit(widget.commandlineExitSuccessCode);
     }
   }
 
