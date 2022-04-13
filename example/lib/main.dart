@@ -39,9 +39,9 @@ void main(List<String> args) async {
 
     // code you want to run if in commandline mode
     afterLoaded: () async {
-      // await CommandlineOrGuiWindows.syncStdOutAndStdErrWithConsole();
       await CommandlineOrGuiWindows.stdout("Hello World");
       await CommandlineOrGuiWindows.stderr("I broke nooooooo");
+      CommandlineOrGuiWindows.commandlineExit();
     },
 
     // gui of the app
