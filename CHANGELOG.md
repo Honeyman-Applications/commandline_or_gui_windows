@@ -1,3 +1,16 @@
+## 1.2.0
+
+- added a commandline exit function
+    - only closes if ```closeOnCompleteCommandlineOptionOnly``` is ```true```
+    - this way you can keep an app open when debugging
+- added CommandlineOrGuiWindows: to all error messages
+    - to help identify where the error came from
+- added ability to set exit code when app exits commandline mode
+- removed unused code from example
+- depricated ```syncStdOutAndStdErrWithConsole```
+    - it should not have been added, oops :(
+- updated readme
+
 ## 1.1.1
 
 - fixed example main.cpp
