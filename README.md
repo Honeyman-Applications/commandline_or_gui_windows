@@ -459,7 +459,7 @@ https://stackoverflow.com/
 ### YAML:
 ```yaml
 dependencies:
-    commandline_or_gui_windows: ^1.1.0
+    commandline_or_gui_windows: ^1.2.0
 ```
 ### Dart:
 ```dart
@@ -531,29 +531,39 @@ void main(List<String> args) async {
     "automation",
     abbr: "a",
   );
-  ArgResults results = parser.parse(args);
+
+  bool errors = false;
+  bool commandlineMode = false;
+  try {
+    ArgResults results = parser.parse(args);
+    commandlineMode = results["automation"];
+  } catch (err) {
+    /* ignore parsing errors, and load in gui mode */
+    errors = true;
+  }
 
   // part of plugin, main entry. This runciton runs runApp
   await CommandlineOrGuiWindows.runAppCommandlineOrGUI(
     // if you want to run in gui or commandline mode
-    commandline: results["automation"], // parsed option from above
+    commandline: commandlineMode, // parsed option from above
 
     // code you want to run if in commandline mode
     afterLoaded: () async {
       await CommandlineOrGuiWindows.stdout("Hello World");
-      await CommandlineOrGuiWindows.stderr("I am broken, oh no!");
+      await CommandlineOrGuiWindows.stderr("I broke nooooooo");
     },
 
     // gui of the app
-    gui: const MaterialApp(
+    gui: MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text("This is the gui of the app"),
+          child: Text("This is the gui of the app. Error detected: $errors"),
         ),
       ),
     ),
   );
 }
+
 ```
 
 ## Functions:
@@ -563,6 +573,7 @@ static Future<void> runAppCommandlineOrGUI({
   Future<void> Function()? afterLoaded,
   bool commandline = true,
   bool closeOnCompleteCommandlineOptionOnly = true,
+  int commandlineExitSuccesCode = 0,
   Widget placeHolderAfterLoadedRunning = const MaterialApp(home: Scaffold(body: Center(child: CircularProgressIndicator()))),
 }) async
   ```
@@ -581,6 +592,8 @@ static Future<void> runAppCommandlineOrGUI({
     - ```bool closeOnCompleteCommandlineOptionOnly = true```
         - closes the app when ```afterLoaded``` is done being run
         - Only relevant if in commandline mode
+    - ```int commandlineExitSuccesCode = 0```
+        - exit code that is sent when the app exits in commandline mode successfully
     - ```Widget placeHolderAfterLoadedRunning = const MaterialApp(home: Scaffold(body: Center(child: CircularProgressIndicator())))```
         - widget displayed while afterLoaded is running
 
@@ -603,6 +616,14 @@ static Future<void> hideWindow(String out) async
 ```
 - Hides the gui
   - gui still exists, but user can't see it or interact with it
+
+```dart
+static commandlineExit({int exitCode = 0})
+```
+- Exits the commandline app when called
+  - should only be called from the ```afterLoaded``` function passed to ```runAppCommandlineOrGUI```
+  - will not close app if ```closeOnCompleteCommandlineOptionOnly``` passed to ```runAppCommandlineOrGUI``` is ```false```
+    - this allows for debugging in certain scenarios
 
 <br>
 
