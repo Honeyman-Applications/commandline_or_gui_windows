@@ -1,3 +1,7 @@
+## 1.2.1
+
+- updated the license to MIT to allow better freedom of use of the code
+
 ## 1.2.0
 
 - added a commandline exit function
