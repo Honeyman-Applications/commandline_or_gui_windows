@@ -24,6 +24,7 @@
     - added:
         - ```commandlineRun```
         - ```args```
+- updated documentation
 
 ## 1.2.1
 
