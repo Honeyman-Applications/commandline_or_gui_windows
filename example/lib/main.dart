@@ -58,7 +58,7 @@ void main(List<String> args) async {
    */
   CommandlineOrGuiWindows.runAppCommandlineOrGUI<void>(
     // if there are 1 or more args passed the app will run in commandline mode
-    args: args,
+    argsCount: args.length,
 
     // if false the app won't close at the end of commandline mode
     // this is allows you to work on code without builing after every change
@@ -66,7 +66,7 @@ void main(List<String> args) async {
     closeOnCompleteCommandlineOptionOnly: false,
 
     // when in commandline mode run the below function
-    commandlineRun: () {
+    commandlineRun: () async {
       // if a value is passed attempt to parse and multiply by 2
       if (results["two_multiplied_by"] != null) {
         try {
@@ -75,7 +75,7 @@ void main(List<String> args) async {
           stderr.writeln(
               "Unable to multiply, 2 * ${results["two_multiplied_by"]}:\n${err.toString()}");
           CommandlineOrGuiWindows.commandlineExit(
-              exitCode: 22); // ERROR_BAD_COMMAND
+              exitCode: 87); // ERROR_INVALID_PARAMETER
         }
         // write error to stderr and send 1 as error exit code
       } else {

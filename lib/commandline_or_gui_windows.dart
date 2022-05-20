@@ -11,16 +11,17 @@ class CommandlineOrGuiWindows {
   // static const MethodChannel _channel = MethodChannel("commandline_or_gui_windows");
   static bool? _closeOnCompleteCommandlineOptionOnly;
 
+  ///
   static Future<void> runAppCommandlineOrGUI<T>({
     Widget? gui,
-    Function()? commandlineRun,
-    required List<String> args,
+    Future<void> Function()? commandlineRun,
+    required int argsCount,
     bool closeOnCompleteCommandlineOptionOnly = true,
     int commandlineExitSuccessCode = 0,
   }) async {
     _closeOnCompleteCommandlineOptionOnly =
         closeOnCompleteCommandlineOptionOnly;
-    bool commandline = args.isNotEmpty;
+    bool commandline = argsCount > 0;
 
     // throw err if in gui mode and no gui
     if (gui == null && !commandline) {
