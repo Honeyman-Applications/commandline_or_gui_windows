@@ -1,6 +1,6 @@
 name: commandline_or_gui_windows
 description: Allows your app to run as either commandline or gui. Windows only.
-version: 1.2.1
+version: 2.0.0
 repository: https://github.com/Honeyman-Applications/commandline_or_gui_windows
 
 environment:
@@ -8,6 +8,8 @@ environment:
   flutter: ">=2.5.0"
 
 dependencies:
+  args: ^2.3.1
+  package_config: ^2.0.2
   flutter:
     sdk: flutter
 

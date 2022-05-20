@@ -1,3 +1,30 @@
+## 2.0.0
+
+- determined that dart ```stdio``` and ```stderr``` can be easily accessed through ```dart.io```
+- made a commandline tool, because the functionality is more about editing ```windows/runner```
+  files
+    - Added
+        - ```bin\\create.dart```
+        - ```builder.dart```
+- removed:
+    - ```syncStdOutAndStdErrWithConsole```
+    - ```stdout```
+        - use ```dart.io```
+            - ```stdout.writeln```
+    - ```stderr```
+        - use ```dart.io```
+            - ```stderr.writeln```
+    - ```hideWindow```
+    - ```commandlineExit```
+- ```runAppCommandlineOrGUI```
+    - removed:
+        - ```placeHolderAfterLoadedRunning```
+        - ```afterLoaded```
+        - ```commandline```
+    - added:
+        - ```commandlineRun```
+        - ```args```
+
 ## 1.2.1
 
 - updated the license to MIT to allow better freedom of use of the code
