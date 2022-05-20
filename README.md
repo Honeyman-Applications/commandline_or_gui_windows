@@ -1,5 +1,5 @@
 # Commandline or GUI Windows
-### This plugin allows you to run a flutter windows app in gui mode. 
+### This plugin allows you to run a flutter windows app in gui mode. [```io.dart```](https://api.flutter.dev/flutter/dart-io/dart-io-library.html) is used to access ```stdout``` and ```stderr```
 
 <br>
 
@@ -208,3 +208,5 @@ https://pub.dev/packages/args
 https://dart.dev/tutorials/server/cmdline
 <br>
 https://docs.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-
+<br>
+https://api.flutter.dev/flutter/dart-io/dart-io-library.html
