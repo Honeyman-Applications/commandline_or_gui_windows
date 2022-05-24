@@ -4,15 +4,19 @@
  */
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class CommandlineOrGuiWindows {
   // static const MethodChannel _channel = MethodChannel("commandline_or_gui_windows");
   static bool? _closeOnCompleteCommandlineOptionOnly;
 
-  ///
-  static Future<void> runAppCommandlineOrGUI<T>({
+  /// used to run the app in commandline or gui mode
+  /// argsCount should be args.length from the main function
+  /// the gui will load if 0 args are passed
+  /// commandline mode will run if 1+ args are passed
+  /// if the function is running wrong run:
+  /// flutter pub run commandline_or_gui_windows:create
+  static Future<void> runAppCommandlineOrGUI({
     Widget? gui,
     Future<void> Function()? commandlineRun,
     required int argsCount,

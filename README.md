@@ -1,5 +1,5 @@
 # Commandline or GUI Windows
-### This plugin allows you to run a flutter windows app in gui mode. [```io.dart```](https://api.flutter.dev/flutter/dart-io/dart-io-library.html) is used to access ```stdout``` and ```stderr```
+### This plugin allows you to run a flutter windows app in gui, or commandline mode. [```io.dart```](https://api.flutter.dev/flutter/dart-io/dart-io-library.html) is used to access ```stdout``` and ```stderr```
 
 <br>
 
@@ -9,6 +9,16 @@
 2. Open powershell and navigate to the root directory of your app. This is typically the directory where your pubspec.yaml resides.
 3. run ```flutter pub run commandline_or_gui_windows:create``` If you want more details run ```flutter pub run commandline_or_gui_windows:create --help```
 
+## ***Restore*** (not part of setup)
+The below two options can be used to attempt to restore your project after using commandline_or_gui_windows. 
+### Option 1 - restore only modified C++ files
+1. Open powershell and navigate to the root directory of your app. This is typically the directory where your pubspec.yaml resides.
+2. run ```flutter pub run commandline_or_gui_windows:restore``` If you want more details run ```flutter pub run commandline_or_gui_windows:restore --help```
+### Option 2 - restore all C++ files
+1. delete windows folder ```C:\project_path\windows\```
+2. Open powershell and navigate to the root directory of your app. This is typically the directory where your pubspec.yaml resides.
+3. run ```flutter create .```
+
 ## Please Post Questions on StackOverflow, and tag @CatTrain (user:16200950)
 https://stackoverflow.com/
 
@@ -16,7 +26,7 @@ https://stackoverflow.com/
 ### YAML:
 ```yaml
 dependencies:
-    commandline_or_gui_windows: ^2.0.0
+    commandline_or_gui_windows: ^2.1.0
 ```
 ### Dart:
 ```dart
@@ -61,7 +71,7 @@ void main(List<String> args) {
 ```
 
 ## Example - GUI or Commandline:
-This example uses [args.dart package](https://pub.dev/packages/args).
+This example uses [args.dart package](https://pub.dev/packages/args), and [dart:io](https://api.flutter.dev/flutter/dart-io/dart-io-library.html) ([for accessing stdio](https://dart.dev/tutorials/server/cmdline)).
 ```dart
 // flutter library for gui
 import 'package:flutter/material.dart';
@@ -121,7 +131,7 @@ void main(List<String> args) async {
     on error prints to stderr
     if no args, runs in gui mode
    */
-  CommandlineOrGuiWindows.runAppCommandlineOrGUI<void>(
+  CommandlineOrGuiWindows.runAppCommandlineOrGUI(
     // if there are 1 or more args passed the app will run in commandline mode
     argsCount: args.length,
 
@@ -162,7 +172,7 @@ void main(List<String> args) async {
 
 ## Functions:
 ```dart
-static Future<void> runAppCommandlineOrGUI<T>({
+static Future<void> runAppCommandlineOrGUI({
   Widget? gui,
   Future<void> Function()? commandlineRun,
   required int argsCount,

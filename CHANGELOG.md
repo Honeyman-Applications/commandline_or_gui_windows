@@ -1,3 +1,14 @@
+## 2.0.1
+
+- remove ```<T>``` from ```runAppCommandlineOrGUI```
+    - not used anywhere
+    - was part of an unimplemented feature
+    - increased documentation
+- Increased documentation
+- fixed minor errors in ```README.md```
+- added restore command in bin
+- minor bug fixes
+
 ## 2.0.0
 
 - determined that dart ```stdio``` and ```stderr``` can be easily accessed through ```dart.io```
