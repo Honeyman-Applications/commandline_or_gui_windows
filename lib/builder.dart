@@ -16,6 +16,9 @@ class Builder {
   late final ArgResults _results;
   late final ArgParser _parser;
 
+  /// main constructor
+  /// must pass aguments from main
+  /// this is where the parser runs
   Builder({
     required this.arguments,
   }) {
@@ -93,7 +96,9 @@ class Builder {
   }
 
   /// uses .dart_tool\\package_config.json to get the path to the assets
-  Future<List<String>?> _getAssetPaths() async {
+  Future<List<String>?> _getAssetPaths({
+    restore = false,
+  }) async {
     // get package config
     PackageConfig? config = await findPackageConfig(Directory.current);
     if (config == null) {
@@ -105,8 +110,14 @@ class Builder {
     Package package = config.packages
         .singleWhere((element) => element.name == "commandline_or_gui_windows");
 
-    // get path to assets
-    String path = "${package.packageUriRoot.toFilePath(windows: true)}assets\\";
+    // get path to assets for create or restore
+    String path;
+    if (restore) {
+      path =
+          "${package.packageUriRoot.toFilePath(windows: true)}assets\\restore\\";
+    } else {
+      path = "${package.packageUriRoot.toFilePath(windows: true)}assets\\";
+    }
 
     // return asset paths
     return <String>[
@@ -117,7 +128,15 @@ class Builder {
   }
 
   /// copies the C++ files from the plugin to the dev's app
-  Future<void> _copyAssetsToProject() async {
+  Future<void> _copyAssetsToProject({
+    restore = false,
+  }) async {
+    // throw error if windows/runner can't be found
+    if (!Directory(_getRunnerPath()).existsSync()) {
+      stderr.writeln("Could not find: ${_getRunnerPath()}");
+      return;
+    }
+
     // set file paths
     List<String> projectCodePaths = <String>[
       "${_getRunnerPath()}\\main.cpp",
@@ -126,7 +145,7 @@ class Builder {
     ];
 
     // get asset paths
-    List<String>? assetPaths = await _getAssetPaths();
+    List<String>? assetPaths = await _getAssetPaths(restore: restore);
     if (assetPaths == null) {
       return;
     }
@@ -144,7 +163,7 @@ class Builder {
 
     // copy files
     for (int i = 0; i < assetPaths.length; i++) {
-      File(assetPaths[i]).copy(projectCodePaths[i]);
+      File(assetPaths[i]).copySync(projectCodePaths[i]);
     }
   }
 
@@ -160,11 +179,25 @@ class Builder {
     }
 
     // copy C++ code to project
-    _copyAssetsToProject();
+    try {
+      _copyAssetsToProject();
+    } catch (err) {
+      stderr.writeln(err.toString());
+    }
+  }
 
-    // throw error if windows/runner can't be found
-    if (!Directory(_getRunnerPath()).existsSync()) {
-      stderr.writeln("Could not find: ${_getRunnerPath()}");
+  Future<void> restore() async {
+    // display help if passed
+    if (_help(
+        "Restores main.cpp, win32_window.h, and win32_window.cpp, C++ files to the values contained in this package. The values in this package should be the default flutter values")) {
+      return;
+    }
+
+    // copy C++ code to project
+    try {
+      _copyAssetsToProject(restore: true);
+    } catch (err) {
+      stderr.writeln(err.toString());
     }
   }
 }
