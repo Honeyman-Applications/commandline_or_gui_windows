@@ -56,7 +56,7 @@ void main(List<String> args) async {
     on error prints to stderr
     if no args, runs in gui mode
    */
-  CommandlineOrGuiWindows.runAppCommandlineOrGUI<void>(
+  CommandlineOrGuiWindows.runAppCommandlineOrGUI(
     // if there are 1 or more args passed the app will run in commandline mode
     argsCount: args.length,
 
