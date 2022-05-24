@@ -8,6 +8,7 @@
 - fixed minor errors in ```README.md```
 - added restore command in bin
 - minor bug fixes
+- tracking more files updated, and ```.gitignore```
 
 ## 2.0.0
 
