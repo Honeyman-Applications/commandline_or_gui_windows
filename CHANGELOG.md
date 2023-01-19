@@ -1,3 +1,12 @@
+# CHANGELOG
+
+## 2.1.1
+
+- added documentation for running commandline mode using (flutter
+  run)[https://docs.flutter.dev/reference/flutter-cli]
+    - ref (Development Cycle: Using args with "flutter run"
+      #1)[https://github.com/Honeyman-Applications/commandline_or_gui_windows/issues/1#issue-1548136445]
+
 ## 2.0.1
 
 - remove ```<T>``` from ```runAppCommandlineOrGUI```
@@ -12,8 +21,10 @@
 
 ## 2.0.0
 
-- determined that dart ```stdio``` and ```stderr``` can be easily accessed through ```dart.io```
-- made a commandline tool, because the functionality is more about editing ```windows/runner```
+- determined that dart ```stdio``` and ```stderr``` can be easily accessed
+  through ```dart.io```
+- made a commandline tool, because the functionality is more about
+  editing ```windows/runner```
   files
     - Added
         - ```bin\\create.dart```
@@ -69,7 +80,8 @@
     - Added example of how to show stderr to readme
 - Wrote required steps to have the app run as a gui or commandline app
     - modifications must be made to C++ code for apps that use this package
-    - Following steps allows output to stdout to be displayed in android studio run terminal
+    - Following steps allows output to stdout to be displayed in android studio
+      run terminal
 - Increased documentation
 
 ## 1.0.0
@@ -88,7 +100,8 @@
 - no longer require allocation of terminal to write to stdout or stderr
     - this causes issues
     - functions left, but shouldn't be use
-- Depricated ```terminalAsOut```, ```terminalAsStdout```, and ```terminalAsStderr```
+- Depricated ```terminalAsOut```, ```terminalAsStdout```,
+  and ```terminalAsStderr```
 
 ## 0.0.2
 

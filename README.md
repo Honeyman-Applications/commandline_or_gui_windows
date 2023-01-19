@@ -1,42 +1,53 @@
 # Commandline or GUI Windows
-### This plugin allows you to run a flutter windows app in gui, or commandline mode. [```io.dart```](https://api.flutter.dev/flutter/dart-io/dart-io-library.html) is used to access ```stdout``` and ```stderr```
 
-<br>
+## This plugin allows you to run a flutter windows app in gui, or commandline mode. [```io.dart```](https://api.flutter.dev/flutter/dart-io/dart-io-library.html) is used to access ```stdout``` and ```stderr```
 
 ## ***Setup***
+
 ### If the setup isn't performed the below code will not run as expected
+
 1. Import the package (add to ```pubspec.yaml``` and run ```pub get```)
 2. Open powershell and navigate to the root directory of your app. This is typically the directory where your pubspec.yaml resides.
 3. run ```flutter pub run commandline_or_gui_windows:create``` If you want more details run ```flutter pub run commandline_or_gui_windows:create --help```
 
 ## ***Restore*** (not part of setup)
-The below two options can be used to attempt to restore your project after using commandline_or_gui_windows. 
+
+The below two options can be used to attempt to restore your project after using commandline_or_gui_windows.
+
 ### Option 1 - restore only modified C++ files
+
 1. Open powershell and navigate to the root directory of your app. This is typically the directory where your pubspec.yaml resides.
 2. run ```flutter pub run commandline_or_gui_windows:restore``` If you want more details run ```flutter pub run commandline_or_gui_windows:restore --help```
+
 ### Option 2 - restore all C++ files
+
 1. delete windows folder ```C:\project_path\windows\```
 2. Open powershell and navigate to the root directory of your app. This is typically the directory where your pubspec.yaml resides.
 3. run ```flutter create .```
 
 ## Please Post Questions on StackOverflow, and tag @CatTrain (user:16200950)
-https://stackoverflow.com/
 
-## Importing:
-### YAML:
+<https://stackoverflow.com/>
+
+## Importing
+
+### YAML
+
 ```yaml
 dependencies:
     commandline_or_gui_windows: ^2.1.0
 ```
-### Dart:
+
+### Dart
+
 ```dart
 import 'package:commandline_or_gui_windows/commandline_or_gui_windows.dart';
 ```
 
-<br>
+## Example - Commandline Only
 
-## Example - Commandline Only:
 Note that at least one argument must be passed or the app will crash and enter gui mode
+
 ```dart
 import 'package:commandline_or_gui_windows/commandline_or_gui_windows.dart';
 import 'dart:io';
@@ -52,8 +63,10 @@ void main(List<String> args) {
 }
 ```
 
-## Example - GUI Only:
+## Example - GUI Only
+
 Note that it will crash if any commandline arguments are passed, because ```commandlineRun``` isn't set
+
 ```dart
 import 'package:commandline_or_gui_windows/commandline_or_gui_windows.dart';
 import 'package:flutter/material.dart';
@@ -70,8 +83,10 @@ void main(List<String> args) {
 }
 ```
 
-## Example - GUI or Commandline:
+## Example - GUI or Commandline
+
 This example uses [args.dart package](https://pub.dev/packages/args), and [dart:io](https://api.flutter.dev/flutter/dart-io/dart-io-library.html) ([for accessing stdio](https://dart.dev/tutorials/server/cmdline)).
+
 ```dart
 // flutter library for gui
 import 'package:flutter/material.dart';
@@ -170,7 +185,38 @@ void main(List<String> args) async {
 }
 ```
 
-## Functions:
+## Running code in commandline mode
+
+### Debug
+
+Using PowerShell, in the above example, "GUI or Commandline" the code can be run in debug mode using the following flutter run command
+
+```PowerShell
+flutter run -a -m -a 5
+```
+
+ Note that ```-a``` indicates the following value will be passed to your app. Run the below command for further documentation
+
+```PowerShell
+flutter run --help
+```
+
+### Release
+
+Using PowerShell, first build your app for release using the following command, from the root of your app typically the same folder as your pubspec.yaml
+
+```PowerShell
+flutter build windows --release
+```
+
+Then navigate to the build location from the root trypically ```.\build\windows\runner\Release```, and now you can run the example without ```-a```
+
+```PowerShell
+.\commandline_or_gui_windows_example.exe -m 5
+```
+
+## Functions
+
 ```dart
 static Future<void> runAppCommandlineOrGUI({
   Widget? gui,
@@ -180,43 +226,39 @@ static Future<void> runAppCommandlineOrGUI({
   int commandlineExitSuccessCode = 0,
 }) async
   ```
+
 - runs runApp, is a replacment for runApp. Allows running of the app in commandline or GUI mode.
-- Parameters: 
-    - ```Widget? gui```
-        - The gui that will be displayed, only required if there are one or more commandline arguments passed
-    - ```Future<void> Function()? commandlineRun```
-        - Function that must be passed if there are one or more commandline arguments passed
-        - This is the code that is run when in commandline mode
-    - ```required int argsCount```
-        - if ```> 0``` run in commandline mode
-            - ```commandlineRun``` must be passed
-        - if ```< 1``` 
-            - ```gui``` must be passed
-    - ```bool closeOnCompleteCommandlineOptionOnly = true```
-        - closes the app when ```commandlineRun``` is done being run
-        - Only relevant if in commandline mode
-    - ```int commandlineExitSuccesCode = 0```
-        - exit code that is sent when the app exits in commandline mode successfully
+- Parameters:
+  - ```Widget? gui```
+    - The gui that will be displayed, only required if there are one or more commandline arguments passed
+  - ```Future<void> Function()? commandlineRun```
+    - Function that must be passed if there are one or more commandline arguments passed
+    - This is the code that is run when in commandline mode
+  - ```required int argsCount```
+    - if ```> 0``` run in commandline mode
+      - ```commandlineRun``` must be passed
+    - if ```< 1```
+      - ```gui``` must be passed
+  - ```bool closeOnCompleteCommandlineOptionOnly = true```
+    - closes the app when ```commandlineRun``` is done being run
+    - Only relevant if in commandline mode
+  - ```int commandlineExitSuccesCode = 0```
+    - exit code that is sent when the app exits in commandline mode successfully
 
 ```dart
 static commandlineExit({int exitCode = 0})
 ```
+
 - Exits the commandline app when called
   - should only be called from the ```afterLoaded``` function passed to ```runAppCommandlineOrGUI```
   - will not close app if ```closeOnCompleteCommandlineOptionOnly``` passed to ```runAppCommandlineOrGUI``` is ```false```
     - this allows for debugging in certain scenarios
 
-<br>
+## Ref
 
-## Ref:
-https://github.com/Honeyman-Applications/commandline_or_gui_windows/
-<br>
-https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html
-<br>
-https://pub.dev/packages/args
-<br>
-https://dart.dev/tutorials/server/cmdline
-<br>
-https://docs.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-
-<br>
-https://api.flutter.dev/flutter/dart-io/dart-io-library.html
+<https://github.com/Honeyman-Applications/commandline_or_gui_windows/>
+<https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html>
+<https://pub.dev/packages/args>
+<https://dart.dev/tutorials/server/cmdline>
+<https://docs.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499->
+<https://api.flutter.dev/flutter/dart-io/dart-io-library.html>
