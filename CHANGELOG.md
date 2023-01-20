@@ -1,11 +1,25 @@
 # CHANGELOG
 
+## 2.1.2
+
+- fixed win_32 error
+    - ```[ERROR:flutter/shell/platform/windows/direct_manipulation.cc(137)] CoCreateInstance(CLSID_DirectManipulationManager, nullptr, CLSCTX_INPROC_SERVER, IID_IDirectManipulationManager, &manager_) failed flutter: [test1, test2]```
+- Changed ```WS_MINIMIZE``` to ```WS_OVERLAPPEDWINDOW | WS_VISIBLE```
+    - [huycozy description](https://github.com/flutter/flutter/issues/110948#issuecomment-1237606789)
+- locked focus to console when using commandline mode
+    - [LockSetForegroundWindow](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-locksetforegroundwindow)
+- when gui opens in commandline mode 1 pixel width in top left corner
+- ref [Development Cycle: Using args with "flutter run"
+  #1](https://github.com/Honeyman-Applications/commandline_or_gui_windows/issues/1#issuecomment-1397461338)
+- **requires rerun ```flutter pub run commandline_or_gui_windows:create``` on
+  update**
+
 ## 2.1.1
 
-- added documentation for running commandline mode using (flutter
-  run)[https://docs.flutter.dev/reference/flutter-cli]
-    - ref (Development Cycle: Using args with "flutter run"
-      #1)[https://github.com/Honeyman-Applications/commandline_or_gui_windows/issues/1#issue-1548136445]
+- added documentation for running commandline mode using [flutter
+  run](https://docs.flutter.dev/reference/flutter-cli)
+    - ref [Development Cycle: Using args with "flutter run"
+      #1](https://github.com/Honeyman-Applications/commandline_or_gui_windows/issues/1#issue-1548136445)
 
 ## 2.0.1
 

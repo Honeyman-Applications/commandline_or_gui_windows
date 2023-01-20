@@ -63,7 +63,7 @@ void main(List<String> args) async {
     // if false the app won't close at the end of commandline mode
     // this is allows you to work on code without builing after every change
     // set to true if you want the app to close when commandline finishes
-    closeOnCompleteCommandlineOptionOnly: false,
+    closeOnCompleteCommandlineOptionOnly: true,
 
     // when in commandline mode run the below function
     commandlineRun: () async {
