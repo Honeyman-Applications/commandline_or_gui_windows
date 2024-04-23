@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 2.2.0
+
+- loads GUI only for non-windows platforms
+- added strut for web compiling
+- switched from branching to tagging for versioning
+- updated example android files
+- changed from plugin to package
+    - because it will compile on any platform
+    - command line is only available on windows
+
 ## 2.1.2
 
 - fixed win_32 error
